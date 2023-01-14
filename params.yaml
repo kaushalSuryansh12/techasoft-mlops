@@ -1,1 +1,33 @@
-{\rtf1}
+base: 
+  project: techasoft-mlops
+    random_state = 20
+    target_col =  charges
+  
+  data_source:
+    s3_source:source_data/insurance.csv
+
+  load_data: 
+    raw_dataset_csv: data/raw/insurance.csv
+
+  split_data:
+    train_path: data/processed/train_insurance.csv
+    test_path: data/processed/test_insurance.csv
+
+  estimators:
+    ElasticNet:
+      params:0.9
+      l1_ratio:0.4
+
+  model_dir: models
+
+  reports:
+    params:reports/params.json
+    scores:reports/scores.json
+
+  weapp_model_dir: prediction_service/model/model.joblib
+
+  metrics:
+    - reports/params.json
+      cache = false
+    - reports/scores.json
+      cache=false
